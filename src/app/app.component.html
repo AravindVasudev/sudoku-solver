@@ -2,7 +2,7 @@
     <header>Sudoku</header>
     <main>
         <div class="row" *ngFor="let row of board; let i = index">
-            <div class="col" *ngFor="let cell of row; let j = index">
+            <div class="col" *ngFor="let cell of row; let j = index" contenteditable>
                 {{ cell }}
             </div>
         </div>

@@ -12,6 +12,8 @@ export class AppComponent {
 
   constructor() {
     this.board = this.generateBoard();
+
+    // setInterval(() => console.log(this.board), 10000);
   }
 
   generateBoard(dimension = this.dimension, fill = this.empty): number[][] {
@@ -21,5 +23,9 @@ export class AppComponent {
     }
 
     return board;
+  }
+
+  updateBoard(row: number, col: number, value: number) {
+    console.log('foo')
   }
 }

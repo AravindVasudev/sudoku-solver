@@ -46,25 +46,38 @@ main {
         align-items: center;
         justify-content: center;
 
+        background: white;
         border: 1px solid black;
 
+        font-family: monospace;
+        font-size: 3em;
+
         &:nth-child(3n) {
-            border-bottom: 5px solid black;
+            border-bottom: 5px solid #191919;
         }
 
         &:first-child {
-            border-top: 5px solid black;
+            border-top: 5px solid #191919;
         }
     }
 }
 
 footer {
     flex: 1;
-
-    font-family: monospace;
-    font-size: 5em;
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-family: monospace;
+    font-size: 5em;
+
+    cursor: pointer;
+
+    &:active {
+        color: #ffffff;
+    }
+
+    // border: 5px solid #191919;
 }
