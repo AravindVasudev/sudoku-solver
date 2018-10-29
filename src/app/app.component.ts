@@ -10,6 +10,7 @@ export class AppComponent {
   dimension = 9;
   empty = 0;
   selected: [number, number] = [-1, -1];
+  title = 'Sudoku';
 
   constructor() {
     // Init board
@@ -104,5 +105,52 @@ export class AppComponent {
     }
 
     return true;
+  }
+
+  isBoardValid(board = this.board): boolean {
+    // check if row and col are valid
+    for (let i = 0; i < board.length; i++) {
+      let seenRow = new Set();
+      let seenCol = new Set();
+      for (let j = 0; j < board.length; j++) {
+        if ((board[i][j] !== this.empty && seenRow.has(board[i][j])) ||
+            (board[j][i] !== this.empty && seenCol.has(board[j][i]))) {
+          return false;
+        }
+
+        seenRow.add(board[i][j]);
+        seenCol.add(board[j][i]);
+      }
+    }
+
+    // check all grids
+    for (let offsetI = 0; offsetI < board.length; offsetI += 3) {
+      for (let offsetJ = 0; offsetJ < board.length; offsetJ += 3) {
+        // in every grid
+        let seen = new Set();
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            if (board[offsetI + i][offsetJ + j] !== this.empty && seen.has(board[offsetI + i][offsetJ + j])) {
+              return false;
+            }
+
+            seen.add(board[offsetI + i][offsetJ + j]);
+          }
+        }
+      }
+    }
+
+
+    return true;
+  }
+
+  solver(): void {
+    if (!this.isBoardValid()) {
+      this.title = 'No Solution';
+      return;
+    }
+
+    this.solve();
+    this.title = 'Sudoku';
   }
 }
