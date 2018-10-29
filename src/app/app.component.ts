@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,10 @@ export class AppComponent {
   board: number[][];
   dimension = 9;
   empty = 0;
+  selected: [number, number] = [-1, -1];
 
   constructor() {
     this.board = this.generateBoard();
-
-    // setInterval(() => console.log(this.board), 10000);
   }
 
   generateBoard(dimension = this.dimension, fill = this.empty): number[][] {
@@ -25,7 +24,18 @@ export class AppComponent {
     return board;
   }
 
-  updateBoard(row: number, col: number, value: number) {
-    console.log('foo')
+  select(row: number, col: number) {
+    this.selected = [row, col];
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  updateBoard(event: any) {
+    // debugger;
+    let num = parseInt(event.key);
+    if (isNaN(num) || this.selected[0] === -1 || num < 0 || num > 9) {
+      return;
+    }
+
+    this.board[this.selected[0]][this.selected[1]] = num;
   }
 }

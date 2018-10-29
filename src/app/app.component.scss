@@ -60,6 +60,10 @@ main {
             border-top: 5px solid #191919;
         }
     }
+
+    .selected {
+        background: #E0E0E0;
+    }
 }
 
 footer {
@@ -78,6 +82,4 @@ footer {
     &:active {
         color: #ffffff;
     }
-
-    // border: 5px solid #191919;
 }
