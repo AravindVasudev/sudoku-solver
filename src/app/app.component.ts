@@ -27,12 +27,12 @@ export class AppComponent {
   }
 
   // select the clicked cell
-  select(row: number, col: number) {
+  select(row: number, col: number): void {
     this.selected = [row, col];
   }
 
   @HostListener('window:keydown', ['$event'])
-  updateBoard(event: any) {
+  updateBoard(event: any): void {
     let num = parseInt(event.key);
     if (isNaN(num) || this.selected[0] === -1 || num < 0 || num > 9) { // check if the key is a valid number
       return;
@@ -46,5 +46,63 @@ export class AppComponent {
 
     // set number at selected cell
     this.board[this.selected[0]][this.selected[1]] = num;
+  }
+
+  solve(board = this.board): boolean {
+    let cur = this.getNextEmptyPosition();
+    if (cur === null) {
+      return true;
+    }
+
+    for (let i = 1; i < 10; i++) {
+      if (this.isSafe(board, cur, i)) {
+        board[cur[0]][cur[1]] = i;
+
+        if (this.solve(board)) {
+          return true;
+        }
+
+        board[cur[0]][cur[1]] = this.empty;
+      }
+    }
+
+    return false;
+  }
+
+  // returns the first empty position
+  getNextEmptyPosition(board = this.board): [number, number] {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+        if (board[i][j] === this.empty) {
+          return [i, j];
+        }
+      }
+    }
+    
+    return null;
+  }
+
+  // checks if the given value can be placed in the given position of the given board
+  isSafe(board: number[][], position: [number, number], value: number): boolean {
+    // check if the value exists in the row or column
+    for (let i = 0; i < board.length; i++) {
+      if (board[i][position[1]] === value || board[position[0]][i] === value) {
+        return false;
+      }
+    }
+
+    // check if the value exists in its grid
+    let rowStart = Math.floor(position[0] / 3) * 3;
+    let colStart = Math.floor(position[1] / 3) * 3;
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[rowStart + i][colStart + j] === value) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 }
