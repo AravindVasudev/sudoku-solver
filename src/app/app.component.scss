@@ -66,20 +66,61 @@ main {
     }
 }
 
+// footer {
+//     flex: 1;
+//     box-sizing: border-box;
+
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+
+//     font-family: monospace;
+//     font-size: 5em;
+
+//     cursor: pointer;
+
+//     &:active {
+//         color: #ffffff;
+//     }
+// }
+
 footer {
     flex: 1;
-    box-sizing: border-box;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    font-family: monospace;
-    font-size: 5em;
+    padding-top: 1em;
 
-    cursor: pointer;
+    #keys {
+        flex: 1;
 
-    &:active {
-        color: #ffffff;
+        display: flex;
+
+        font-family: monospace;
+        font-size: 3em;
+
+        div {
+            flex: 1;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    button {
+        flex: 1;
+
+        background: transparent;
+        border: 5px solid #042030;
+
+        font-family: monospace;
+        font-size: 3vw;
+    
+        &:active {
+            background: #000;
+        }
     }
 }
